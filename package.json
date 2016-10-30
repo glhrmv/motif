@@ -1,0 +1,14 @@
+{
+  "name": "lastfm-discord-bot",
+  "version": "1.0.0",
+  "description": "last.fm bot for discord",
+  "main": "lastfm-discord-bot.js",
+  "scripts": {
+    "test": "nodemon lastfm-discord-bot.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discordie": "^0.8.1"
+  }
+}
