@@ -6,10 +6,10 @@ bot for Discord which fetches some data from last.fm and posts it in a group cha
 how to use
 ----------
 
-the bot uses [node.js](nodejs.org) and the npm packages [discordie](https://qeled.github.io/discordie/#/?_k=u2u71j) and [nodemon](https://www.npmjs.com/package/nodemon). discordie comes with this project so you'll only need to install nodemon.
-
+the bot uses [node.js](nodejs.org) and the npm packages [discordie](https://qeled.github.io/discordie/#/?_k=u2u71j) and [nodemon](https://www.npmjs.com/package/nodemon). 
 assuming you have node.js installed, type this in your command line / terminal.
 
+    npm install
     npm install -g nodemon
 
 **you'll need a last.fm API account**, [create one here](http://www.last.fm/api/accounts). 
