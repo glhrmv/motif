@@ -1,0 +1,5 @@
+# ignore node_modules folders
+node_modules/
+
+# ignore keys.js file
+/keys.js

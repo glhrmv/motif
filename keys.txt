@@ -1,5 +1,0 @@
-last.fm API account information:
-Application name	{app name}
-API key	{api-key}
-Shared secret	{shared-secret}
-Registered to	{last.fm username}

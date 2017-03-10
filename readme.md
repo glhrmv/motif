@@ -1,43 +1,45 @@
-last.fm-discord-bot
-===================
+# last.fm-discord-bot
 
-bot for Discord which fetches some data from last.fm and posts it in a group chat
+Bot for Discord that fetches data from last.fm.
 
-how to use
-----------
+## Usage
 
-the bot uses [node.js](nodejs.org) and the npm packages [discordie](https://qeled.github.io/discordie/#/?_k=u2u71j) and [nodemon](https://www.npmjs.com/package/nodemon). discordie comes with this project so you'll only need to install nodemon.
+Assuming you have [Node.js](https://nodejs.org) installed, type this in your CLI.
 
-assuming you have node.js installed, type this in your command line / terminal.
+```
+npm install -g nodemon
+```
 
-    npm install -g nodemon
+**You'll need a last.fm API account**, [create one here](http://www.last.fm/api/accounts). 
 
-**you'll need a last.fm API account**, [create one here](http://www.last.fm/api/accounts). 
-I recommend saving the information from your API account somewhere, like into the included `keys.txt` file, as right now last.fm doesn't allow you to manage your existing API accounts beyond creating new ones, which I imagine is a bug on their end.
+**You'll also need a Discord app** (bot), [create a public bot here](https://discordapp.com/developers/applications/me).
 
-**you'll also need a Discord app** (bot), [create a public bot here](https://discordapp.com/developers/applications/me). your Discord bots' information will stay in this page so you don't necessarily need to save it anywhere, but use the `keys.txt` file if you want. 
+Place the required information in the `keys.example.js` file -- `discordToken` will be your bot's token and `lastfmApiKey` will be your last.fm API key.
 
-next, take a look at the `lastfm-discord-bot.js` file and replace the placeholder variable values with the proper keys. 
+Rename `keys.example.js` to `keys.js`.
 
-now you can run the bot, but it won't do anything because it's not currently in a discord server. **add your bot to a discord server**, there are a bunch of resources online where you can learn how to do this. 
+**Add your bot to a discord server**, there are many resources online where you can learn how to do this.
 
-when your bot is in a server, it will be offline as long as the script isn't being executed.
+To run the bot, open a command line / terminal window in the project folder (`/lastfm-discord-bot`) and type 
 
-to run the bot, open a command line / terminal window in the project folder (/lastfm-discord-bot) and type 
+```
+node bot
+```
 
-    nodemon lastfm-discord-bot
+If everything went well, the console should reply with `Connected as: `. Commands in chat should now prompt a response from the bot.  
 
-if everything went well, the console should reply with `Connected as: `. commands in chat should now prompt a response from the bot.  
+## Commands
 
-commands
---------
+The bot currently has 2 commands:
 
-the bot currently has 2 commands:
-
->.np {username}
+```
+.np {last.fm username}
+```
 
 will return the information of the last song scrobbled.
 
->.topalbums {username}
+```
+.topalbums {last.fm username}
+```
 
 will return the top 3 most scrobbled albums.

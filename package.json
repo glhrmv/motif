@@ -4,7 +4,7 @@
   "description": "last.fm bot for discord",
   "main": "lastfm-discord-bot.js",
   "scripts": {
-    "test": "nodemon lastfm-discord-bot.js"
+    "test": "node lastfm-discord-bot.js"
   },
   "author": "",
   "license": "ISC",
