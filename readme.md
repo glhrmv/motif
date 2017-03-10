@@ -4,10 +4,10 @@ Bot for Discord that fetches data from [last.fm](http://www.last.fm/).
 
 ## Usage
 
-Assuming you have [Node.js](https://nodejs.org) installed, type this in your CLI.
+Assuming you have [Node.js](https://nodejs.org) on your machine, install the dependencies with 
 
 ```
-npm install -g nodemon
+npm install
 ```
 
 **You'll need a last.fm API account**, [create one here](http://www.last.fm/api/accounts). 
@@ -20,7 +20,7 @@ Rename `keys.example.js` to `keys.js`.
 
 **Add your bot to a discord server**, there are many resources online where you can learn how to do this.
 
-To run the bot, open a command line / terminal window in the project folder (`/lastfm-discord-bot`) and type 
+To run the bot, do 
 
 ```
 node bot
