@@ -1,6 +1,6 @@
 # last.fm-discord-bot
 
-Bot for Discord that fetches data from last.fm.
+Bot for Discord that fetches data from [last.fm](http://www.last.fm/).
 
 ## Usage
 
