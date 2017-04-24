@@ -1,4 +1,4 @@
-const http = require('http');
+const axios = require('axios');
 const keys = require('./keys');
 
 const Discordie = require('discordie');
@@ -9,91 +9,76 @@ const client = new Discordie();
 const discordToken = keys.discordToken;
 const lastfmApiKey = keys.lastfmApiKey;
 
+// last.fm API endpoint
+const apiUrl = 'http://ws.audioscrobbler.com/2.0/?method=';
+
 // connect to Discrd
 client.connect({ token: discordToken });
 
-client.Dispatcher.on(Events.GATEWAY_READY, (e) => {
+client.Dispatcher
+  .on(Events.GATEWAY_READY, (e) => {
     console.log('Connected as: ' +  client.User.username);
-});
-
-// on new message
-client.Dispatcher.on(Events.MESSAGE_CREATE, event => {
-    let input = event.message.content.split(' ');
+  })
+  .on(Events.MESSAGE_CREATE, (e) => {
+    let input = e.message.content.split(' ');
 
     if (input.length === 2) {
         if ( input[0] === ".np") {
-            nowPlaying(input[1], event);
+            nowPlaying(input[1], e);
         } else if ( input[0] === ".topalbums") {
-            topAlbums(input[1], event);
+            topAlbums(input[1], e);
         }
     }
-});
+  });
 
 // commands
-function nowPlaying(user, event) {
+function nowPlaying(user, e) {
     let method = 'user.getRecentTracks';
+    let qs = '&user=${user}&api_key=${lastfmApiKey}&limit=2&format=json';
 
-    // url
-    let url = `http://ws.audioscrobbler.com/2.0/?method=${method}&user=${user}&api_key=${lastfmApiKey}&limit=2&format=json`;
+    let reqUrl = `${apiUrl}${method}${qs}`;
 
-    http.get(url, function(res) {
-        let body = '';
-
-        res.on('data', function(chunk) {
-            body += chunk;
-        });
-
-        res.on('end', function() {
-            let data = JSON.parse(body);
-
-            if (data.recenttracks !== undefined) {
-                let latestTrack = data.recenttracks.track[0].name;
-                let latestTrackArtist = data.recenttracks.track[0].artist['#text'];
-                let response = `currently listening to: ${latestTrack} - ${latestTrackArtist}`;
-                event.message.channel.sendMessage(response);
-            }
-            else {
-                event.message.channel.sendMessage('invalid user');
-            }
-        });
-    }).on('error', function(error) {
-            console.log('got an error:', error);
-    });
+    axios.get(reqUrl)
+      .then((res) => {
+        let latestTrack = res.data.recenttracks.track[0];
+        console.log(latestTrack);
+        let latestTrackName = latestTrack.name;
+        let latestTrackArtist = latestTrack.artist['#text'];
+        e.message.channel.sendMessage(`currently listening to: ${latestTrackArtist} - ${latestTrackName}`);
+      })
+      .catch((err) => {
+        console.log('got an error:', err);
+      });
 }
 
-function topAlbums(user, event) {
+function topAlbums(user, e) {
     let method = 'user.getTopAlbums';
+    let qs = '&user=${user}&api_key=${lastfmApiKey}&limit=3&format=json';
 
-    // url
-    let url = `http://ws.audioscrobbler.com/2.0/?method=${method}&user=${user}&api_key=${lastfmApiKey}&limit=3&format=json`;
+    let reqUrl = `${apiUrl}${method}${qs}`;
 
-    http.get(url, function(res) {
-        let body = '';
+    axios.get(reqUrl)
+      .then((res) => {
+        console.log(res.data);
+        let topAlbums = res.data.topalbums;
 
-        res.on('data', function(chunk) {
-            body += chunk;
-        });
-
-        res.on('end', function() {
-            let data = JSON.parse(body);
-
-            if (data.topalbums != undefined) {
-                if (data.topalbums.album[0] != undefined) {
-                    let response = `${user}'s top albums:\n`
-                    for (let i = 0; i < 3; i++) {
-                        let albumTitle = data.topalbums.album[i].name;
-                        let albumArtist = data.topalbums.album[i].artist.name;
-                        response += (i+1) + `: ${albumTitle} - ${albumArtist}\n`;
-                    }
-                    event.message.channel.sendMessage(response);
-                } else {
-                    event.message.channel.sendMessage('user hasn\'t listened to any music in this period');
-                }
-            } else {
-                event.message.channel.sendMessage('invalid user');
+        if (topAlbums) {
+          if (topAlbums.album[0]) {
+            let response = '${user}\§s top albums:\n';
+            for (let i = 0; i < 3; i++) {
+              let albumArtist = topAlbums.album[i].artist.name;
+              let AlbumTitle = topAlbums.album[i].name
+              response += (i + 1) + ': ${albumArtist} - ${AlbumTitle}\n';
             }
-        });
-    }).on('error', function(error) {
-        console.log('got an error:', error);
-    });
+            e.message.channel.sendMessage(response);
+          } else {
+            e.message.channel.sendMessage('user hasn\t listened to any music in this period');
+          }
+        } else {
+          e.message.channel.sendMessage('invalid user');
+        }
+      })
+      .catch((err) => {
+        console.log('got an error:', err);
+      });
 }
