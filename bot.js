@@ -6,8 +6,7 @@ const Events = Discordie.Events;
 const client = new Discordie();
 
 // private keys
-const discordToken = keys.discordToken;
-const lastfmApiKey = keys.lastfmApiKey;
+const { discordToken, lastfmApiKey } = keys.discordToken;
 
 // last.fm API endpoint
 const apiUrl = 'http://ws.audioscrobbler.com/2.0/?method=';
@@ -32,7 +31,7 @@ client.Dispatcher
   });
 
 // commands
-function nowPlaying(user, e) {
+const nowPlaying = (user, e) => {
     let method = 'user.getRecentTracks';
     let qs = '&user=${user}&api_key=${lastfmApiKey}&limit=2&format=json';
 
@@ -51,7 +50,7 @@ function nowPlaying(user, e) {
       });
 }
 
-function topAlbums(user, e) {
+const topAlbums = (user, e) => {
     let method = 'user.getTopAlbums';
     let qs = '&user=${user}&api_key=${lastfmApiKey}&limit=3&format=json';
 
