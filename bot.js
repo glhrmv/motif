@@ -41,9 +41,8 @@ const nowPlaying = (user, e) => {
       .then((res) => {
         let latestTrack = res.data.recenttracks.track[0]
 
-        let { name } = latestTrack
-        let { '#text': artist } = latestTrack.artist;
-        e.message.channel.sendMessage(`currently listening to: ${latestTrackArtist} - ${latestTrackName}`);
+        let { name, artist: { '#text': artist } } = latestTrack
+        e.message.channel.sendMessage(`currently listening to: ${name} - ${artist}`);
       })
       .catch((err) => {
         console.log('got an error:', err);
