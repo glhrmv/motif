@@ -33,50 +33,61 @@ client.Dispatcher
 // commands
 const nowPlaying = (user, e) => {
     let method = 'user.getRecentTracks'
-    let qs = '&user=${user}&api_key=${lastfmApiKey}&limit=2&format=json'
+    let qs = `&user=${user}&api_key=${lastfmApiKey}&limit=2&format=json`
 
     let reqUrl = `${apiUrl}${method}${qs}`
 
     axios.get(reqUrl)
       .then((res) => {
+        if (res.data.message) {
+          e.message.channel.sendMessage('user not found')
+          return
+        }
+        
         let latestTrack = res.data.recenttracks.track[0]
+        
+        if (!latestTrack) {
+          e.message.channel.sendMessage('user not found')
+          return
+        }
 
         let { name, artist: { '#text': artist } } = latestTrack
-        e.message.channel.sendMessage(`currently listening to: ${name} - ${artist}`);
+        e.message.channel.sendMessage(`currently listening to: ${name} - ${artist}`)
       })
       .catch((err) => {
-        console.log('got an error:', err);
-      });
+        console.log('got an error:', err)
+      })
 }
 
 const topAlbums = (user, e) => {
-    let method = 'user.getTopAlbums';
-    let qs = '&user=${user}&api_key=${lastfmApiKey}&limit=3&format=json';
+    let method = 'user.getTopAlbums'
+    let qs = `&user=${user}&api_key=${lastfmApiKey}&limit=3&format=json`
 
-    let reqUrl = `${apiUrl}${method}${qs}`;
+    let reqUrl = `${apiUrl}${method}${qs}`
 
     axios.get(reqUrl)
       .then((res) => {
-        console.log(res.data);
-        let topAlbums = res.data.topalbums;
+        let topAlbums = res.data.topalbums
 
         if (topAlbums) {
           if (topAlbums.album[0]) {
-            let response = '${user}\§s top albums:\n';
+            let response = `${user}'s top albums:\n`
+            
             for (let i = 0; i < 3; i++) {
-              let albumArtist = topAlbums.album[i].artist.name;
-              let AlbumTitle = topAlbums.album[i].name
-              response += (i + 1) + ': ${albumArtist} - ${AlbumTitle}\n';
+              let { artist: { name: albumArtist }, name: albumTitle } = topAlbums.album[i]
+              
+              response += `${i + 1}: ${albumArtist} - ${albumTitle}\n`
             }
-            e.message.channel.sendMessage(response);
+            
+            e.message.channel.sendMessage(response)
           } else {
-            e.message.channel.sendMessage('user hasn\t listened to any music in this period');
+            e.message.channel.sendMessage('user hasn\t listened to any music in this period')
           }
         } else {
-          e.message.channel.sendMessage('invalid user');
+          e.message.channel.sendMessage('invalid user')
         }
       })
       .catch((err) => {
-        console.log('got an error:', err);
+        console.log('got an error:', err)
       });
 }
