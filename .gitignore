@@ -3,3 +3,9 @@ node_modules/
 
 # ignore keys.js file
 /keys.js
+
+# ignore swap files
+*.swp
+
+# ignore tags
+tags
