@@ -1,4 +1,4 @@
-# last.fm-discord-bot
+# orpheus
 
 Bot for Discord that fetches data from [last.fm](http://www.last.fm/).
 
@@ -18,7 +18,7 @@ Place the required information in the `keys.example.js` file -- `discordToken` w
 
 Rename `keys.example.js` to `keys.js`.
 
-**Add your bot to a discord server**, there are many resources online where you can learn how to do this.
+**Add your bot to a Discord server**, there are many resources online where you can learn how to do this.
 
 To run the bot, do 
 
@@ -26,7 +26,7 @@ To run the bot, do
 node bot
 ```
 
-If everything went well, the console should reply with `Connected as: `. Commands in chat should now prompt a response from the bot.  
+If everything went well, the console should reply with `Connected as: ${bot name}`. Commands in chat should now prompt a response from the bot.  
 
 ## Commands
 
