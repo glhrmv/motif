@@ -1,11 +1,11 @@
 {
-  "name": "",
+  "name": "orpheus",
   "version": "1.0.0",
   "description": "Discord bot that fetches data from last.fm",
   "main": "index.js",
   "scripts": {
     "test": "node lastfm-discord-bot.js",
-    "format": "prettier --write '/**/*.js'"
+    "format": "prettier --single-quote --trailing-comma es5 --write './**/*.js'"
   },
   "author": "glhrmv",
   "license": "ISC",
