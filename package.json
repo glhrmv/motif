@@ -11,9 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
-    "discordie": "^0.11.0"
+    "discord.js": "^11.4.2"
   },
   "devDependencies": {
-    "prettier": "^1.14.0"
+    "prettier": "^1.14.2"
   }
 }

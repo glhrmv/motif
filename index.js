@@ -1,105 +1,102 @@
-const axios = require('axios');
-const Discordie = require('discordie');
+const Discord = require('discord.js')
+const axios = require('axios')
 
-const { Events } = Discordie;
-const client = new Discordie();
+// Private keys defined in the keys.js file
+const { DISCORD_BOT_TOKEN, LASTFM_API_KEY } = require('./keys')
 
-const keys = require('./keys');
+// Last.fm API endpoint
+const LASTFM_API_URL = 'http://ws.audioscrobbler.com/2.0/?method='
 
-// private keys
-const { discordToken, lastfmApiKey } = keys;
+// create a new Discord client
+const client = new Discord.Client();
 
-// last.fm API endpoint
-const apiUrl = 'http://ws.audioscrobbler.com/2.0/?method=';
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`)
+})
 
-// connect to Discrd
-client.connect({ token: discordToken });
+// Event listener for messages
+client.on('message', message => {
+  const msg = message.content.split(' ')
 
-client.Dispatcher.on(Events.GATEWAY_READY, e => {
-  console.log('Connected as: ' + client.User.username);
-}).on(Events.MESSAGE_CREATE, e => {
-  const input = e.message.content.split(' ');
-
-  if (input.length === 2) {
-    if (input[0] === '.np') {
-      nowPlaying(input[1], e);
-    } else if (input[0] === '.topalbums') {
-      topAlbums(input[1], e);
+  if (msg.length === 2) {
+    if (msg[0] === '.nowplaying') {
+      now_playing(msg[1], message)
+    } else if (msg[0] === '.topalbums') {
+      top_albums(msg[1], message)
     }
   }
-});
+})
 
-// commands
-const nowPlaying = (user, e) => {
-  const method = 'user.getRecentTracks';
-  const qs = `&user=${user}&api_key=${lastfmApiKey}&limit=2&format=json`;
+// Bot commands
+const now_playing = (user, message) => {
+  const METHOD = 'user.getRecentTracks'
+  const QUERY_STRING = `&user=${user}&api_key=${LASTFM_API_KEY}&limit=2&format=json`
 
-  const reqUrl = `${apiUrl}${method}${qs}`;
+  const request_url = `${LASTFM_API_URL}${METHOD}${QUERY_STRING}`
 
   axios
-    .get(reqUrl)
+    .get(request_url)
     .then(res => {
       if (res.data.message) {
-        e.message.channel.sendMessage('user not found');
-        return;
+        message.channel.send('User not found')
+        return
       }
 
-      const latestTrack = res.data.recenttracks.track[0];
+      const latest_track = res.data.recenttracks.track[0]
 
-      if (!latestTrack) {
-        e.message.channel.sendMessage('user not found');
-        return;
+      if (!latest_track) {
+        e.message.channel.send('User not found')
+        return
       }
 
       const {
         name,
         artist: { '#text': artist },
-      } = latestTrack;
+      } = latest_track
 
-      e.message.channel.sendMessage(
-        `currently listening to: ${name} - ${artist}`
-      );
+      message.channel.send(`${user} is currently listening to: ${name} - ${artist}`)
     })
     .catch(err => {
-      console.log('got an error:', err);
-    });
-};
+      console.log('Got an error:', err)
+    })
+}
 
-const topAlbums = (user, e) => {
-  const method = 'user.getTopAlbums';
-  const qs = `&user=${user}&api_key=${lastfmApiKey}&limit=3&format=json`;
+const top_albums = (user, message) => {
+  const METHOD = 'user.getTopAlbums'
+  const QUERY_STRING = `&user=${user}&api_key=${LASTFM_API_KEY}&limit=3&format=json`
 
-  const reqUrl = `${apiUrl}${method}${qs}`;
+  const request_url = `${LASTFM_API_URL}${METHOD}${QUERY_STRING}`
 
   axios
-    .get(reqUrl)
+    .get(request_url)
     .then(res => {
-      const topAlbums = res.data.topalbums;
+      const top_albums = res.data.topalbums
 
-      if (topAlbums) {
-        if (topAlbums.album[0]) {
-          let response = `${user}'s top albums:\n`;
+      if (top_albums) {
+        if (top_albums.album[0]) {
+          let response = `${user}'s top albums (all time):\n`
 
           for (let i = 0; i < 3; i++) {
             const {
-              artist: { name: albumArtist },
-              name: albumTitle,
-            } = topAlbums.album[i];
+              artist: { name: album_artist },
+              name: album_title,
+            } = top_albums.album[i]
 
-            response += `${i + 1}: ${albumArtist} - ${albumTitle}\n`;
+            response += `${i + 1}: ${album_artist} - ${album_title}\n`
           }
 
-          e.message.channel.sendMessage(response);
+          message.channel.send(response)
         } else {
-          e.message.channel.sendMessage(
-            'user hasn\'t listened to any music in this period'
-          );
+          message.channel.send("That user hasn't listened to any music in this period")
         }
       } else {
-        e.message.channel.sendMessage('invalid user');
+        message.channel.send('Iinvalid user')
       }
     })
     .catch(err => {
-      console.log('got an error:', err);
-    });
-};
+      console.log('Got an error:', err)
+    })
+}
+
+// Log in to Discrd
+client.login(DISCORD_BOT_TOKEN)
