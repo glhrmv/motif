@@ -1,10 +1,10 @@
 {
-  "name": "orpheus",
+  "name": "motif",
   "version": "1.0.0",
   "description": "Discord bot that fetches data from last.fm",
   "main": "index.js",
   "scripts": {
-    "test": "node lastfm-discord-bot.js",
+    "start": "node index.js",
     "format": "prettier --single-quote --trailing-comma es5 --write './**/*.js'"
   },
   "author": "glhrmv",

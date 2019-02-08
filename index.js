@@ -7,7 +7,7 @@ const { DISCORD_BOT_TOKEN, LASTFM_API_KEY } = require('./keys')
 // Last.fm API endpoint
 const LASTFM_API_URL = 'http://ws.audioscrobbler.com/2.0/?method='
 
-// create a new Discord client
+// Create a new Discord client
 const client = new Discord.Client();
 
 client.on('ready', () => {
