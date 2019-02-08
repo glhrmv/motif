@@ -1,8 +1,9 @@
 # motif
 
 Bot for Discord that fetches data from [last.fm].
+
 Given a username, the bot can tell you someone's top 3 albums,
-and the last song they listened to (and [scrobbled])
+and the last song they listened to (and [scrobbled]).
 
 [last.fm]: http://www.last.fm/
 [scrobbled]: https://www.netlingo.com/word/scrobble.php
