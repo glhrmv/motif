@@ -10,10 +10,10 @@
   "author": "glhrmv",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.19.0",
     "discord.js": "^11.4.2"
   },
   "devDependencies": {
-    "prettier": "^1.14.2"
+    "prettier": "^1.17.1"
   }
 }
