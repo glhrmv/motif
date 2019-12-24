@@ -2,7 +2,7 @@
 
 Bot for Discord that fetches data from [last.fm].
 
-## Pre-requisites
+## Prerequisites
 
 You must have [Node.js](https://nodejs.org) installed.
 
