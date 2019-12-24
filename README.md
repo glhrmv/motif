@@ -2,19 +2,17 @@
 
 Bot for Discord that fetches data from [last.fm].
 
-Given a username, the bot can tell you someone's top 3 albums,
-and the last song they listened to (and [scrobbled]).
+## Pre-requisites
 
-[last.fm]: http://www.last.fm/
-[scrobbled]: https://www.netlingo.com/word/scrobble.php
+You must have [Node.js](https://nodejs.org) installed.
 
 ## Usage
 
-With [Node](https://nodejs.org) on your machine, 
-install the dependencies with 
+Install the dependencies with 
 ```
-npm install
+npm i
 ```
+
 **You'll need a last.fm API account**, 
 [create one here](http://www.last.fm/api/accounts). 
 
@@ -31,7 +29,8 @@ To run the bot, do
 ```
 npm start
 ```
-If everything went well, the console should reply with `Logged in as [bot username]!`. 
+If everything went well, you should see `Logged in as [bot username]!` on the terminal. 
+
 Commands in chat should now prompt a response from the bot.  
 
 ## Commands
@@ -42,10 +41,13 @@ The bot currently has 2 commands:
 ```
 .nowplaying [last.fm username]
 ```
-will return the information of the last song scrobbled.
+Returns the last song scrobbled by user.
 
 ### .topalbums
 ```
 .topalbums [last.fm username]
 ```
-will return the top 3 most scrobbled albums.
+Returns the top 3 albums (all time) scrobbled by user.
+
+[last.fm]: http://www.last.fm/
+[scrobbled]: https://www.netlingo.com/word/scrobble.php
