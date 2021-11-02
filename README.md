@@ -1,31 +1,33 @@
 # motif
 
-Bot for Discord that fetches data from [last.fm].
+Bot for Discord that fetches data from [Last.fm].
 
 ## Prerequisites
 
-You must have [Node.js](https://nodejs.org) installed.
+- You must have [Node.js](https://nodejs.org) installed.
 
-## Usage
+- You need a Last.fm API key, 
+[create one here](http://www.last.fm/api/accounts). 
 
-Install the dependencies with 
+- You also need a Discord bot, 
+[create one here](https://discordapp.com/de2.velopers/applications/me).
+
+## Manual usage
+
+**Clone this repository**, then **install the dependencies** with 
 ```
 npm i
 ```
 
-**You'll need a last.fm API account**, 
-[create one here](http://www.last.fm/api/accounts). 
+Then, **create a `.env` file**, modeled after the existing `.example.env` file.
 
-**You'll also need a Discord app** (bot), 
-[create a public bot here](https://discordapp.com/de2.velopers/applications/me).
-
-Place the required information in the `keys.js` file -- 
-`DISCORD_BOT_TOKEN` will be your bot's token and 
+`TOKEN` will be your bot's token and 
 `LASTFM_API_KEY` will be your last.fm API key.
 
-**Add your bot to a Discord server**: there are several 
+Then, **Add your bot to a Discord server**: there are several 
 resources online where you can learn how to do this.
-To run the bot, do 
+
+Now, to **run the bot**, do 
 ```
 npm start
 ```
@@ -37,17 +39,17 @@ Commands in chat should now prompt a response from the bot.
 
 The bot currently has 2 commands:
 
-### .nowplaying
+### /nowplaying
 ```
-.nowplaying [last.fm username]
+.nowplaying [user]
 ```
-Returns the last song scrobbled by user.
+Returns the last song [scrobbled] by `user` (must be a Last.fm account).
 
-### .topalbums
+### /topalbums
 ```
-.topalbums [last.fm username]
+.topalbums [user]
 ```
-Returns the top 3 albums (all time) scrobbled by user.
+Returns the top 3 albums (all time) [scrobbled] by `user` (must be a Last.fm account).
 
 [last.fm]: http://www.last.fm/
 [scrobbled]: https://www.netlingo.com/word/scrobble.php
