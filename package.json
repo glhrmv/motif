@@ -2,9 +2,9 @@
   "name": "motif",
   "version": "1.0.0",
   "description": "Last.fm stats on Discord",
-  "main": "new_index.js",
+  "main": "src/new_index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "author": "glhrmv",
   "license": "ISC",
