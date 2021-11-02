@@ -2,7 +2,7 @@
   "name": "motif",
   "version": "1.0.0",
   "description": "Last.fm stats on Discord",
-  "main": "index.js",
+  "main": "new_index.js",
   "scripts": {
     "start": "node index.js"
   },
@@ -12,6 +12,10 @@
     "@discordjs/rest": "^0.1.0-canary.0",
     "axios": "^0.21.2",
     "discord-api-types": "^0.24.0",
-    "discord.js": "^11.6.4"
+    "discord.js": "^11.6.4",
+    "envy": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0"
   }
 }
