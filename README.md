@@ -1,5 +1,9 @@
 # motif
 
+<p align="center">
+  <img src="img/motif.png" />
+</p>
+
 Bot for Discord that fetches data from [Last.fm].
 
 ## Prerequisites
@@ -12,7 +16,7 @@ Bot for Discord that fetches data from [Last.fm].
 - You also need a Discord bot, 
 [create one here](https://discord.com/developers/applications).
 
-## Manual usage
+## Instructions
 
 **Clone this repository**, then **install the dependencies** with 
 ```
@@ -23,19 +27,28 @@ Then, **create a `.env` file**, modeled after the existing `.example.env` file.
 
 `TOKEN` will be your bot's token and 
 `LASTFM_API_KEY` will be your Last.fm API key.
+`CLIENT_ID` will be your bot's client ID and
+`GUILD_ID` will be your server's guild ID. 
 
-Then, **Add your bot to a Discord server**: there are several 
+Then, **add your bot to a Discord server**: there are several 
 resources online where you can learn how to do this.
 
-Now, to **run the bot**, do 
+Then, **register its slash commands** in your server with 
+```
+npm run deploy
+```
+
+Now, **run the bot** whenever you want with
 ```
 npm start
 ```
-If everything went well, you should see `Logged in as [bot username]!` on the terminal. 
-
-Commands in chat should now prompt a response from the bot.  
+If everything went well, you should see `Logged in as [bot username]!` in the terminal. 
 
 ## Commands
+
+<p align="center">
+  <img src="img/demo.png" />
+</p>
 
 The bot currently has 2 commands:
 
