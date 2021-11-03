@@ -16,7 +16,6 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	console.log(env);
 });
 
 client.on('interactionCreate', async interaction => {
