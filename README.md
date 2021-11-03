@@ -1,53 +1,64 @@
 # motif
 
-Bot for Discord that fetches data from [last.fm].
+<p align="center">
+  <img src="img/motif.png" />
+</p>
+
+Bot for Discord that fetches data from [Last.fm].
 
 ## Prerequisites
 
-You must have [Node.js](https://nodejs.org) installed.
+- You must have [Node.js](https://nodejs.org) installed.
 
-## Usage
+- You need a Last.fm API key, 
+[create one here](http://www.last.fm/api/accounts). 
 
-Install the dependencies with 
+- You also need a Discord bot, 
+[create one here](https://discord.com/developers/applications).
+
+## Instructions
+
+**Clone this repository**, then **install the dependencies** with 
 ```
 npm i
 ```
 
-**You'll need a last.fm API account**, 
-[create one here](http://www.last.fm/api/accounts). 
+Then, **create a `.env` file**, modeled after the existing `.example.env` file.
 
-**You'll also need a Discord app** (bot), 
-[create a public bot here](https://discordapp.com/de2.velopers/applications/me).
+`TOKEN` will be your bot's token and 
+`LASTFM_API_KEY` will be your Last.fm API key.
+`CLIENT_ID` will be your bot's client ID and
+`GUILD_ID` will be your server's guild ID. 
 
-Place the required information in the `keys.js` file -- 
-`DISCORD_BOT_TOKEN` will be your bot's token and 
-`LASTFM_API_KEY` will be your last.fm API key.
-
-**Add your bot to a Discord server**: there are several 
+Then, **add your bot to a Discord server**: there are several 
 resources online where you can learn how to do this.
-To run the bot, do 
+
+Then, **register its slash commands** in your server with 
+```
+npm run deploy
+```
+
+Now, **run the bot** whenever you want with
 ```
 npm start
 ```
-If everything went well, you should see `Logged in as [bot username]!` on the terminal. 
-
-Commands in chat should now prompt a response from the bot.  
+If everything went well, you should see `Logged in as [bot username]!` in the terminal. 
 
 ## Commands
 
+<p align="center">
+  <img src="img/demo.png" />
+</p>
+
 The bot currently has 2 commands:
 
-### .nowplaying
-```
-.nowplaying [last.fm username]
-```
-Returns the last song scrobbled by user.
+### `/nowplaying [user]`
 
-### .topalbums
-```
-.topalbums [last.fm username]
-```
-Returns the top 3 albums (all time) scrobbled by user.
+Returns the last song [scrobbled] by `user` (must be a Last.fm account).
+
+### `/topalbums [user]`
+
+Returns the top 3 albums (all time) [scrobbled] by `user` (must be a Last.fm account).
 
 [last.fm]: http://www.last.fm/
 [scrobbled]: https://www.netlingo.com/word/scrobble.php

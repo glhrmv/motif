@@ -1,19 +1,23 @@
 {
   "name": "motif",
   "version": "1.0.0",
-  "description": "Discord bot that fetches data from last.fm",
-  "main": "index.js",
+  "description": "Last.fm stats on Discord",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "format": "prettier --single-quote --trailing-comma es5 --write './**/*.js'"
+    "start": "node src/index.js",
+    "deploy": "node src/deploy-commands.js"
   },
   "author": "glhrmv",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.2",
-    "discord.js": "^11.4.2"
+    "@discordjs/builders": "^0.8.2",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "axios": "^0.24.0",
+    "discord-api-types": "^0.24.0",
+    "discord.js": "^13.3.1",
+    "envy": "^2.0.0"
   },
   "devDependencies": {
-    "prettier": "^1.17.1"
+    "eslint": "^8.1.0"
   }
 }
