@@ -1,8 +1,4 @@
-# motif
-
-<p align="center">
-  <img src="img/motif.png" />
-</p>
+![motif](img/motif.png)
 
 Bot for Discord that fetches data from [Last.fm].
 
