@@ -24,8 +24,6 @@ Bot for Discord that fetches data from [Last.fm].
   <img src="img/demo.png" />
 </p>
 
-The bot currently has 2 commands:
-
 ### `/nowplaying [user]`
 
 Returns the last song [scrobbled] by `user` (a Last.fm account).
@@ -34,9 +32,13 @@ Returns the last song [scrobbled] by `user` (a Last.fm account).
 
 Returns the top 5 albums [scrobbled] by `user` (a Last.fm account) over a given `period`.
 
-### `/artists [user] [period]`
+### `/topartists [user] [period]`
 
 Returns the top 5 artists [scrobbled] by `user` (a Last.fm account) over a given `period`.
+
+### `/toptracks [user] [period]`
+
+Returns the top 5 tracks [scrobbled] by `user` (a Last.fm account) over a given `period`.
 
 [last.fm]: http://www.last.fm/
 [scrobbled]: https://www.netlingo.com/word/scrobble.php

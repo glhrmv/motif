@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { ChatInputCommandInteraction } from 'discord.js';
-import { instance, USER_TOP_ARTISTS } from '../axios';
+import { instance, USER_TOP_TRACKS } from '../axios';
 
 enum TimePeriod {
   Week = "7day",
@@ -12,15 +12,15 @@ enum TimePeriod {
 }
 
 export const data = new SlashCommandBuilder()
-	.setName('topartists')
-	.setDescription('Get the 5 top artists listened to by a user over a given time period (all tiime is default).')
+	.setName('toptracks')
+	.setDescription('Get the 5 top tracks listened to by a user over a given time period (all tiime is default).')
 	.addStringOption(option => option
 		.setName('user')
-		.setDescription('The user name to fetch top artists for.')
+		.setDescription('The user name to fetch top tracks for.')
 		.setRequired(true))
   .addStringOption(option => option
     .setName('period')
-    .setDescription('The time period over which to retrieve top artists for.')
+    .setDescription('The time period over which to retrieve top tracks for.')
     .addChoices(
       { name: "all time", value: TimePeriod.AllTime },
       { name: "last year", value: TimePeriod.Year },
@@ -40,7 +40,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     const res = await instance.get("", { params: {
 			user,
       period,
-			method: USER_TOP_ARTISTS,
+			method: USER_TOP_TRACKS,
       limit: 5,
 		}});
 
@@ -48,11 +48,11 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 			throw new Error("Something went wrong.");
 
     const data = JSON.parse(res.data);
-    const artists = data.topartists.artist.map((a: any, i: number) => {
-      return `${i + 1}. ${a.name}`;
+    const tracks = data.toptracks.track.map((t: any, i: number) => {
+      return `${i + 1}. ${t.artist.name} - ${t.name}`;
     });
 
-    await interaction.editReply(`**${user}**'s top artists (period: *${period}*):\n${artists.join('\n')}`);
+    await interaction.editReply(`**${user}**'s top tracks (period: *${period}*):\n${tracks.join('\n')}`);
 	}
 	catch (error) {
     interaction.ephemeral = true;
