@@ -4,8 +4,8 @@
   "description": "Last.fm stats on Discord",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "deploy": "node src/deploy-commands.js"
+    "start": "ts-node src/index.ts",
+    "deploy": "ts-node src/deploy-commands.ts"
   },
   "author": "glhrmv",
   "license": "ISC",

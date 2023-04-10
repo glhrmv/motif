@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { instance, USER_RECENT_TRACKS } from '../axios';
 
 export const data = new SlashCommandBuilder()
@@ -6,10 +7,10 @@ export const data = new SlashCommandBuilder()
 	.setDescription('Retrieves the last scrobbled song for a given user')
 	.addStringOption(option => option
 		.setName('user')
-		.setDescription('Enter a last.fm username')
+		.setDescription('The user name to fetch top albums for.')
 		.setRequired(true));
 		
-export async function execute(interaction: any) {
+export async function execute(interaction: ChatInputCommandInteraction) {
 	await interaction.deferReply();
 	
 	try {
@@ -25,15 +26,7 @@ export async function execute(interaction: any) {
 
 		const data = JSON.parse(res.data);
 
-		console.log(data);
-
 		const latestTrack = data.recenttracks.track[0];
-
-		if (!latestTrack) {
-			await interaction.editReply('User not found');
-			return;
-		}
-
 		const {
 			name, artist: { '#text': artist }, 
 		} = latestTrack;
@@ -41,6 +34,7 @@ export async function execute(interaction: any) {
 		await interaction.editReply(`**${user}** is listening to: *${artist} - ${name}*`);
 	}
 	catch (error) {
-		await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
+		interaction.ephemeral = true;
+		await interaction.editReply('There was an error while executing this command!');
 	}
 }
