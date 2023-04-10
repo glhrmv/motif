@@ -28,11 +28,15 @@ The bot currently has 2 commands:
 
 ### `/nowplaying [user]`
 
-Returns the last song [scrobbled] by `user` (must be a Last.fm account).
+Returns the last song [scrobbled] by `user` (a Last.fm account).
 
-### `/topalbums [user] [options]`
+### `/topalbums [user] [period]`
 
-Returns the top 3 albums (all time) [scrobbled] by `user` (must be a Last.fm account).
+Returns the top 5 albums [scrobbled] by `user` (a Last.fm account) over a given `period`.
+
+### `/artists [user] [period]`
+
+Returns the top 5 artists [scrobbled] by `user` (a Last.fm account) over a given `period`.
 
 [last.fm]: http://www.last.fm/
 [scrobbled]: https://www.netlingo.com/word/scrobble.php
