@@ -3,7 +3,7 @@ import { instance, USER_RECENT_TRACKS } from '../lastfm';
 
 export const data = new SlashCommandBuilder()
 	.setName('nowplaying')
-	.setDescription('Retrieves song that is currently being scrobbled (or the last) for a given user')
+	.setDescription('Retrieves the last scrobbled song for a given user')
 	.addStringOption(option => option
 		.setName('user')
 		.setDescription('Enter a last.fm username')
@@ -11,23 +11,23 @@ export const data = new SlashCommandBuilder()
 		
 export async function execute(interaction: any) {
 	await interaction.deferReply();
-
-	const user = interaction.options.getString('user');
-
+	
 	try {
-		console.log("now playing")
-		const res = await instance.get(USER_RECENT_TRACKS, { params: {
+		const user = interaction.options.getString('user');
+		const res = await instance.get("", { params: {
 			user,
-			limit: 2
+			method: USER_RECENT_TRACKS,
+			limit: 1
 		}});
-		console.log(res);
 
-		if (res.data.message) {
-			await interaction.editReply('User not found');
-			return;
-		}
+		if (res.status !== 200)
+			throw new Error("Something went wrong.");
 
-		const latestTrack = res.data.recenttracks.track[0];
+		const data = JSON.parse(res.data);
+
+		console.log(data);
+
+		const latestTrack = data.recenttracks.track[0];
 
 		if (!latestTrack) {
 			await interaction.editReply('User not found');
@@ -38,10 +38,9 @@ export async function execute(interaction: any) {
 			name, artist: { '#text': artist }, 
 		} = latestTrack;
 
-		await interaction.editReply(`${user} is currently listening to: ${artist} - ${name}`);
+		await interaction.editReply(`**${user}** is listening to: *${artist} - ${name}*`);
 	}
 	catch (error) {
-		console.error(error);
 		await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 }
