@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { instance, USER_RECENT_TRACKS } from '../lastfm';
+import { instance, USER_RECENT_TRACKS } from '../axios';
 
 export const data = new SlashCommandBuilder()
 	.setName('nowplaying')
